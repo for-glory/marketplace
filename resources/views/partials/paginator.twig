@@ -1,0 +1,48 @@
+{% if (paginator.hasPages()) %}
+    <ul class="list-reset flex justify-center py-6" role="navigation">
+        {# Previous Page Link #}
+        {% if (paginator.onFirstPage()) %}
+            <li class="disabled" aria-disabled="true" aria-label="@lang('pagination.previous')">
+                <span aria-hidden="true" class="px-3 py-2">&lsaquo;</span>
+            </li>
+        {% else %}
+            <li>
+                <a href="{{ paginator.previousPageUrl() }}" rel="prev" aria-label="@lang('pagination.previous')" class="px-3 py-2 no-underline text-black">&lsaquo;</a>
+            </li>
+        {% endif %}
+
+        {# Pagination Elements #}
+        {% for element in elements %}
+            {% if element is iterable %}
+                {# Array Of Links #}
+                {% for page, url in element %}
+                    {% if (page == paginator.currentPage()) %}
+                        <li class="active" aria-current="page">
+                            <span class="px-3 py-2 bg-grey-darkest text-white">{{ page }}</span>
+                        </li>
+                    {% else %}
+                        <li>
+                            <a class="px-3 py-2 no-underline text-black" href="{{ url }}">{{ page }}</a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            {% else %}    
+                {# "Three Dots" Separator #}
+                <li class="disabled" aria-disabled="true">
+                    <span class="px-3 py-2">{{ element }}</span>
+                </li>
+            {% endif %}
+        {% endfor %}
+
+        {# Next Page Link #}
+        {% if (paginator.hasMorePages()) %}
+            <li>
+                <a href="{{ paginator.nextPageUrl() }}" rel="next" aria-label="@lang('pagination.next')" class="px-3 py-2 no-underline text-black">&rsaquo;</a>
+            </li>
+        {% else %}
+            <li class="disabled" aria-disabled="true" aria-label="@lang('pagination.next')">
+                <span aria-hidden="true" class="px-3 py-2">&rsaquo;</span>
+            </li>
+        {% endif %}
+    </ul>
+{% endif %}

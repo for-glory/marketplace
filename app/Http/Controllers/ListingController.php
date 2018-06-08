@@ -14,7 +14,7 @@ class ListingController extends Controller
      */
     public function index()
     {
-        return view('listing.index', ['listings' => Listing::all()]);
+        return view('listing.index', ['listings' => Listing::paginate(12)]);
     }
 
     /**
