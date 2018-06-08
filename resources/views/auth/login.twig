@@ -5,6 +5,8 @@
         
     <h1 class="mt-8 mb-4">{{ __('Login') }}</h1>
 
+    <p class="mb-4">Don't have an account yet? Please <a href="{{ url('register') }}">register</a> first.</p>
+
     <form method="POST" action="{{ route('login') }}" class="flex flex-col">
         {{ csrf_field() }}
 
