@@ -16,3 +16,6 @@ Route::get('/', function () {
 });
 
 Route::resource('listings', 'ListingController');
+
+Auth::routes();
+

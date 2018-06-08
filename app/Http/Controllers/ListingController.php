@@ -14,7 +14,9 @@ class ListingController extends Controller
      */
     public function index()
     {
-        return view('listing.index', ['listings' => Listing::paginate(12)]);
+        return view('listing.index', [
+            'listings' => Listing::orderBy('created_at', 'desc')->paginate(12)
+        ]);
     }
 
     /**
@@ -24,7 +26,7 @@ class ListingController extends Controller
      */
     public function create()
     {
-        //
+        return view('listing.create');
     }
 
     /**
@@ -35,7 +37,8 @@ class ListingController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $listing = Listing::create($request->all());
+        return redirect()->route('listings.index');
     }
 
     /**

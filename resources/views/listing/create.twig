@@ -1,0 +1,28 @@
+{% extends 'layouts.default' %}
+
+{% block content %}
+
+    <div class="flex flex-col w-1/2 mx-auto">
+        
+        <h1 class="mt-8 mb-4">New listing</h1>
+
+        <form action="/listings" method="POST" class="flex flex-col">
+            {{ csrf_field() }}
+
+            <label for="listing-title">Title</label>
+            <input class="border px-4 py-2 mb-4" type="text" name="title" id="listing-title">
+
+            <label for="listing-description">Description</label>
+            <textarea class="border px-4 py-2 mb-4" name="description" id="listing-description" cols="30" rows="10"></textarea>
+
+            <label for="listing-price">Price</label>
+            <input class="border px-4 py-2 mb-4" type="text" name="price" id="listing-price">
+
+            <button type="submit" class="inline-block hover:bg-pink bg-pink-light rounded-full ml-auto px-8 py-3 text-sm font-semibold no-underline text-white">
+                Create listing
+            </button>
+        </form>
+
+    </div>
+
+{% endblock %}

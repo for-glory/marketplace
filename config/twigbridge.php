@@ -179,7 +179,8 @@ return [
             'head',
             'last',
             'mix',
-            'app'
+            'app',
+            '__'
         ],
 
         /*
