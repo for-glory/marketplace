@@ -9,10 +9,14 @@
             <li class="w-full sm:w-1/2 md:w-1/4">
                 {% include 'partials.card' with { 
                     'title': listing.title,
-                    'description': listing.description,
+                    'description': listing.description|length > 250 
+                        ? listing.description|slice(0, 250) ~ '...' 
+                        : listing.description,
                     'url': url('listings', listing.id),
-                    'price': '€ ' ~ (listing.price/100)|number_format(2, ',', '.')
+                    'price': '€ ' ~ (listing.price/100)|number_format(2, ',', '.'),
+                    'image': asset('storage/' ~ listing.image.filename)
                 } %}
+
             </li>
         {% endfor %}
     </ul>

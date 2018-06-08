@@ -180,7 +180,8 @@ return [
             'last',
             'mix',
             'app',
-            '__'
+            '__',
+            'asset'
         ],
 
         /*
