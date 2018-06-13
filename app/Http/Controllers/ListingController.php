@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use App\Listing;
 use App\ListingImage;
 use Illuminate\Http\Request;
@@ -48,13 +49,13 @@ class ListingController extends Controller
      */
     public function store(Request $request)
     {
-        $listing = Listing::create($request->all());
+        $listing = Auth::user()->listings()->create($request->all());
 
-        $filename = $request->image->storePublicly('listingimages', ['disk' => 'public']);
-        ListingImage::create([
-            'listing_id' => $listing->id,
-            'filename' => $filename
-        ]);    
+        $image = new ListingImage([
+            'filename' => $request->image->storePublicly('listingimages', ['disk' => 'public'])
+        ]);
+
+        $listing->image()->save($image);
 
         return redirect()->route('listings.index');
     }
@@ -67,7 +68,7 @@ class ListingController extends Controller
      */
     public function show($id)
     {
-        return view('listing.show', ['listing' => Listing::with('image')->find($id)]);
+        return view('listing.show', ['listing' => Listing::with(['image', 'author.userProfile'])->find($id)]);
     }
 
     /**

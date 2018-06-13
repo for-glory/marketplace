@@ -21,3 +21,10 @@ $factory->define(App\User::class, function (Faker $faker) {
         'remember_token' => str_random(10),
     ];
 });
+
+$factory->define(App\UserProfile::class, function (Faker $faker) {
+    return [
+        'postcode' => $faker->postcode,
+        'phone_number' => $faker->e164PhoneNumber
+    ];
+});

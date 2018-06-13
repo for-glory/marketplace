@@ -12,4 +12,9 @@ class Listing extends Model
     {
         return $this->hasOne('App\ListingImage');
     }
+
+    public function author()
+    {
+        return $this->belongsTo('App\User');   
+    }
 }

@@ -1,6 +1,46 @@
-<nav class="bg-blue-light px-2 py-4">
+<nav class="bg-blue-lightest p-2">
     <div class="flex items-center justify-between flex-wrap container mx-auto">
 
+        <div class="block lg:hidden">
+            <button class="flex items-center px-3 py-2 border rounded text-black hover:text-white">
+              <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
+            </button>
+        </div>
+        
+        <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
+            <div class="text-sm lg:flex-grow">
+                <a href="{{ url('listings') }}" class="block mt-4 lg:inline-block lg:mt-0 text-black hover:text-black mr-4 no-underline">
+                Listings
+                </a>
+                <a href="{{ url('info') }}" class="block mt-4 lg:inline-block lg:mt-0 text-black hover:text-black mr-4 no-underline">
+                Help & info
+                </a>
+                
+            </div>
+            <div>
+                {% if auth_check() %}
+                    <form action="{{ route('logout') }}" method="POST" class="block mt-4 lg:inline-block lg:mt-0 ">
+                        {{ csrf_field() }}
+                         <button type="submit" class="text-black hover:text-black mr-4 text-sm">
+                            Logout
+                        </button>
+                    </form>
+                {% else %}
+                    <a href="{{ route('login') }}" class="block mt-4 lg:inline-block lg:mt-0 text-black hover:text-black mr-4 text-sm no-underline">
+                        Login
+                    </a>
+                {% endif %}
+
+                <a href="{{ url('listings/create') }}" class="inline-block bg-yellow hover:bg-yellow-light rounded-full ml-auto px-8 py-3 text-sm font-semibold no-underline text-black">New listing</a>
+            </div>
+        </div>
+
+    </div>
+</nav>
+
+<div class="bg-blue-light px-2 py-4">
+    <div class="flex items-center justify-between flex-wrap container mx-auto">
+    
         <div class="flex items-center flex-no-shrink text-white mr-6">
             <a href="{{ url('/') }}" class="flex items-center no-underline text-white">
                 <svg class="h-8 w-auto mr-2 fill-current" xmlns="http://www.w3.org/2000/svg" width="512" height="474" viewBox="0 0 512 474">
@@ -13,39 +53,14 @@
             </a>
         </div>
 
-        <div class="block lg:hidden">
-            <button class="flex items-center px-3 py-2 border rounded text-teal-lighter border-teal-light hover:text-white hover:border-white">
-              <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
-            </button>
-        </div>
-        
-        <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
-            <div class="text-sm lg:flex-grow">
-                <a href="{{ url('listings') }}" class="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-white mr-4 no-underline">
-                Listings
-                </a>
-                <a href="{{ url('info') }}" class="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-white mr-4 no-underline">
-                Help & info
-                </a>
-                
-            </div>
-            <div>
-                {% if auth_check() %}
-                    <form action="{{ route('logout') }}" method="POST" class="block mt-4 lg:inline-block lg:mt-0 ">
-                        {{ csrf_field() }}
-                         <button type="submit" class="text-white hover:text-white mr-4 text-sm">
-                            Logout
-                        </button>
-                    </form>
-                {% else %}
-                    <a href="{{ route('login') }}" class="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-white mr-4 text-sm no-underline">
-                        Login
-                    </a>
-                {% endif %}
+        <form action="" class="flex flex-grow">
+            {{ csrf_field() }}
 
-                <a href="{{ url('listings/create') }}" class="inline-block bg-pink-light hover:bg-pink rounded-full ml-auto px-8 py-3 text-sm font-semibold no-underline text-white">New listing</a>
+            <div class="flex flex-grow rounded overflow-hidden">
+                <input type="text" placeholder="Search your product" name="query" class="p-4 flex-grow">
+                <button type="submit" class="bg-grey-light hover:bg-grey-lightest text-black px-8">Search</button>
             </div>
-        </div>
+        </form>
 
     </div>
-</nav>
+</div>

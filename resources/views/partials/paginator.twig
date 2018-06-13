@@ -1,5 +1,5 @@
 {% if (paginator.hasPages()) %}
-    <ul class="list-reset flex justify-center py-6" role="navigation">
+    <ul class="list-reset flex justify-center py-6 mb-8" role="navigation">
         {# Previous Page Link #}
         {% if (paginator.onFirstPage()) %}
             <li class="disabled" aria-disabled="true" aria-label="@lang('pagination.previous')">
@@ -18,11 +18,15 @@
                 {% for page, url in element %}
                     {% if (page == paginator.currentPage()) %}
                         <li class="active" aria-current="page">
-                            <span class="px-3 py-2 bg-grey-darkest text-white">{{ page }}</span>
+                            <span class="rounded px-3 py-2 bg-grey-darkest text-white">
+                                {{ page }}
+                            </span>
                         </li>
                     {% else %}
                         <li>
-                            <a class="px-3 py-2 no-underline text-black" href="{{ url }}">{{ page }}</a>
+                            <a class=" rounded px-3 py-2 no-underline text-black" href="{{ url }}">
+                                {{ page }}
+                            </a>
                         </li>
                     {% endif %}
                 {% endfor %}

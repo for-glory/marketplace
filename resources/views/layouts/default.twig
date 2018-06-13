@@ -17,13 +17,15 @@
         <link href="https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css" rel="stylesheet">
     </head>
     
-    <body class="bg-yellow-lightest">
+    <body class="bg-grey-lighter">
 
         {% include 'partials.site-header' %}
 
-        <div class="container mx-auto px-2">
+        <section class="container mx-auto px-2 min-h-screen">
             {% block content %}{% endblock %}
-        </div>
+        </section>
+
+        {% include 'partials.site-footer' %}
 
     </body>
 </html>

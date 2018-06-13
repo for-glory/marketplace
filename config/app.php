@@ -213,4 +213,5 @@ return [
 
     ],
 
+    'faker_locale' => 'nl_NL',
 ];

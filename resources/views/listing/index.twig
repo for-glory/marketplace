@@ -7,6 +7,7 @@
     <ul class="list-reset flex flex-wrap mb-4 -mx-2">
         {% for listing in listings %}
             <li class="w-full sm:w-1/2 md:w-1/4">
+                
                 {% include 'partials.card' with { 
                     'title': listing.title,
                     'description': listing.description|length > 250 
