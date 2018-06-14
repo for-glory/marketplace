@@ -15,6 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('listings/search', 'ListingController@search');
 Route::resource('listings', 'ListingController');
 
 Auth::routes();

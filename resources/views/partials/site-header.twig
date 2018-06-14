@@ -53,11 +53,9 @@
             </a>
         </div>
 
-        <form action="" class="flex flex-grow">
-            {{ csrf_field() }}
-
+        <form action="{{ action('ListingController@search') }}" class="flex flex-grow">
             <div class="flex flex-grow rounded overflow-hidden">
-                <input type="text" placeholder="Search your product" name="query" class="p-4 flex-grow">
+                <input type="text" placeholder="Search in listings" name="query" class="p-4 flex-grow" value="{{ app('request').input('query') }}">
                 <button type="submit" class="bg-grey-light hover:bg-grey-lightest text-black px-8">Search</button>
             </div>
         </form>

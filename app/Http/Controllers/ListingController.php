@@ -6,6 +6,8 @@ use Auth;
 use App\Listing;
 use App\ListingImage;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreListing;
+use Illuminate\Support\Facades\Input;
 
 class ListingController extends Controller
 {
@@ -16,7 +18,7 @@ class ListingController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth', ['except' => ['index','show']]);
+        $this->middleware('auth', ['except' => ['index', 'show', 'search']]);
     }
 
     /**
@@ -44,19 +46,20 @@ class ListingController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\StoreListing $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreListing $request)
     {
-        $listing = Auth::user()->listings()->create($request->all());
-
+        $validData = $request->validated();
+        // Store listing
+        $listing = Auth::user()->listings()->create($validData);
+        // Store image
         $image = new ListingImage([
-            'filename' => $request->image->storePublicly('listingimages', ['disk' => 'public'])
+            'filename' => $validData['image']->storePublicly('listingimages', ['disk' => 'public'])
         ]);
-
         $listing->image()->save($image);
-
+        // Redirect
         return redirect()->route('listings.index');
     }
 
@@ -68,7 +71,9 @@ class ListingController extends Controller
      */
     public function show($id)
     {
-        return view('listing.show', ['listing' => Listing::with(['image', 'author.userProfile'])->find($id)]);
+        return view('listing.show', [
+            'listing' => Listing::with(['image', 'author.userProfile'])->find($id)
+        ]);
     }
 
     /**
@@ -102,6 +107,26 @@ class ListingController extends Controller
      */
     public function destroy($id)
     {
-        //
+        dd($id);
+    }
+
+    /**
+     * Search in resource
+     * 
+     * @return \Illuminate\Http\Response
+     */
+    public function search()
+    {
+        if (!Input::get('query')) {
+            return redirect()->route('listings.index');
+        }
+
+        $listings = Listing::searchByQuery([
+            'match' => ['title' => Input::get('query')]
+        ]);
+
+        return view('listing.index', [
+            'listings' => $listings
+        ]);
     }
 }

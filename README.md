@@ -4,10 +4,10 @@ This Laravel application is meant as a personal excercise project. The aim is to
 
 ## To do
 
-- Implement search engine (ElasticSearch)
 - Implement front-end framework (Vue.js?)
 - Write unit/end-to-end tests
 - Add additional functionality
+- ~~Implement search engine (ElasticSearch)~~
 - ~~Setup database factories and seeders~~
 - ~~Setup basic models and routes~~
 - ..

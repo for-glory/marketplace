@@ -4,23 +4,27 @@
 
     <h1 class="mt-8 mb-4">Listings</h1>
 
-    <ul class="list-reset flex flex-wrap mb-4 -mx-2">
-        {% for listing in listings %}
-            <li class="w-full sm:w-1/2 md:w-1/4">
-                
-                {% include 'partials.card' with { 
-                    'title': listing.title,
-                    'description': listing.description|length > 250 
-                        ? listing.description|slice(0, 250) ~ '...' 
-                        : listing.description,
-                    'url': url('listings', listing.id),
-                    'price': '€ ' ~ (listing.price/100)|number_format(2, ',', '.'),
-                    'image': asset('storage/' ~ listing.image.filename)
-                } %}
+    {% if listings|length > 0 %}
+        <ul class="list-reset flex flex-wrap mb-4 -mx-2">
+            {% for listing in listings %}
+                <li class="w-full sm:w-1/2 md:w-1/4">
+                    
+                    {% include 'partials.card' with { 
+                        'title': listing.title,
+                        'description': listing.description|length > 250 
+                            ? listing.description|slice(0, 250) ~ '...' 
+                            : listing.description,
+                        'url': url('listings', listing.id),
+                        'price': '€ ' ~ (listing.price/100)|number_format(2, ',', '.'),
+                        'image': asset('storage/' ~ listing.image.filename)
+                    } %}
 
-            </li>
-        {% endfor %}
-    </ul>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No listings found.</p>
+    {% endif %}
 
     {{ listings.links('partials.paginator')|raw }}
 
